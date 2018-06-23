@@ -76,6 +76,18 @@ def login(jar, username, password):
         jar.update(resp.cookies)
         return data['transfer_parameters']
 
+    elif data.get('requires_twofactor'):
+        code = input("Enter the code you received from the Authenticator app: ")
+        params['twofactorcode'] = code
+        resp = requests.post(URL_LOGIN, data=params, cookies=jar)
+        assert resp.status_code == 200, "Login failed."
+
+        data = resp.json()
+        assert data['success'], "Login failed."
+
+        jar.update(resp.cookies)
+        return data['transfer_parameters']
+
     else:
         logger.info("Login failed.")
         logger.info(data)
