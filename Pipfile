@@ -6,7 +6,7 @@ name = "pypi"
 [packages]
 requests = "*"
 scrapy = "*"
-cryptography = "==2.3.1"
+cryptography = "==2.4.2"
 
 [dev-packages]
 
